@@ -199,8 +199,10 @@ class _AliceCallsListScreenState extends State<AliceCallsListScreen> {
     return ListView.builder(
       itemCount: calls.length,
       itemBuilder: (context, index) {
-        return AliceCallListItemWidget(
-            calls[index], _onListItemClicked, widget.customColors);
+        // Newest call first; the stored list stays in arrival order so
+        // share/export keeps its chronological output.
+        return AliceCallListItemWidget(calls[calls.length - 1 - index],
+            _onListItemClicked, widget.customColors);
       },
     );
   }

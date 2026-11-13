@@ -6,6 +6,7 @@ import 'package:alice_lightweight/core/alice_core.dart';
 import 'package:alice_lightweight/core/alice_dio_interceptor.dart';
 import 'package:alice_lightweight/core/alice_http_client_adapter.dart';
 import 'package:alice_lightweight/model/alice_http_call.dart';
+import 'package:alice_lightweight/utils/alice_copy_hook.dart';
 import 'package:alice_lightweight/utils/alice_custom_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -46,7 +47,9 @@ class Alice {
     AliceCustomColors customColors = const AliceCustomColors(),
     void Function(AliceHttpCall aliceHttpCall)? quickShareAction,
     Future<void> Function(AliceHttpCall aliceHttpCall)? sendToComputerAction,
+    void Function(String text)? onTextCopied,
   }) {
+    AliceCopyHook.onCopied = onTextCopied;
     final defaultQuickShareAction = (call) {
       SharePlus.instance.share(
         ShareParams(

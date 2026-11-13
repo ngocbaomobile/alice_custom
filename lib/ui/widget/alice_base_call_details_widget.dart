@@ -17,9 +17,13 @@ abstract class AliceBaseCallDetailsWidgetState<T extends StatefulWidget>
         Padding(padding: EdgeInsets.only(left: 5)),
         Flexible(
           fit: FlexFit.loose,
-          child: Text(
+          // SelectableText, not a screen-wide SelectionArea: dragging a
+          // SelectionArea across a lazily built, scrolling ListView threw
+          // "Null check operator used on a null value". Each value is its own
+          // selection scope, so long-press + drag copies one field safely.
+          child: SelectableText(
             value,
-            overflow: TextOverflow.clip,
+            maxLines: null,
           ),
         ),
         Padding(

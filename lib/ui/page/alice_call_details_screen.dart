@@ -94,8 +94,12 @@ class _AliceCallDetailsScreenState extends State<AliceCallDetailsScreen>
           ),
           title: Text('Alice - HTTP Call Details'),
         ),
-        body: TabBarView(
-          children: _getTabBarViewList(),
+        // SelectionArea makes every Text below long-press selectable with the
+        // native copy toolbar, so headers/bodies can be copied piecewise.
+        body: SelectionArea(
+          child: TabBarView(
+            children: _getTabBarViewList(),
+          ),
         ),
       ),
     );

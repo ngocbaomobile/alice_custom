@@ -20,12 +20,17 @@ class AliceCore {
   /// By default it will share cURL command.
   final void Function(AliceHttpCall aliceHttpCall)? quickShareAction;
 
+  /// Optional "send to computer" handler. When set, the call details screen
+  /// shows an app bar button that runs it; throwing marks the send as failed.
+  final Future<void> Function(AliceHttpCall aliceHttpCall)? sendToComputerAction;
+
   GlobalKey<NavigatorState> _navigatorKey;
   bool _isInspectorOpened = false;
   StreamSubscription? _callsSubscription;
 
   /// Creates alice core instance
-  AliceCore(this._navigatorKey, this.customColors, [this.quickShareAction]);
+  AliceCore(this._navigatorKey, this.customColors,
+      [this.quickShareAction, this.sendToComputerAction]);
 
   /// Dispose subjects and subscriptions
   void dispose() {

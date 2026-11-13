@@ -93,12 +93,33 @@ class _AliceCallDetailsScreenState extends State<AliceCallDetailsScreen>
             tabs: _getTabBars(),
           ),
           title: Text('Alice - HTTP Call Details'),
+          actions: [
+            if (widget.core.sendToComputerAction != null)
+              Builder(
+                builder: (context) => IconButton(
+                  tooltip: 'Send to computer',
+                  icon: Icon(Icons.computer),
+                  onPressed: () => _sendToComputer(context),
+                ),
+              ),
+          ],
         ),
         body: TabBarView(
           children: _getTabBarViewList(),
         ),
       ),
     );
+  }
+
+  Future<void> _sendToComputer(BuildContext context) async {
+    final messenger = ScaffoldMessenger.of(context);
+    String message = 'Sent to computer';
+    try {
+      await widget.core.sendToComputerAction!(call);
+    } catch (e) {
+      message = 'Send failed: $e';
+    }
+    messenger.showSnackBar(SnackBar(content: Text(message)));
   }
 
   Widget _buildErrorWidget() {

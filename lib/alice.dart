@@ -45,6 +45,7 @@ class Alice {
     bool darkTheme = false,
     AliceCustomColors customColors = const AliceCustomColors(),
     void Function(AliceHttpCall aliceHttpCall)? quickShareAction,
+    Future<void> Function(AliceHttpCall aliceHttpCall)? sendToComputerAction,
   }) {
     final defaultQuickShareAction = (call) {
       SharePlus.instance.share(
@@ -58,6 +59,7 @@ class Alice {
       navigatorKey,
       customColors,
       quickShareAction ?? defaultQuickShareAction,
+      sendToComputerAction,
     );
     final httpClientAdapter = AliceHttpClientAdapter(aliceCore);
     final httpAdapter = AliceHttpAdapter(aliceCore);
